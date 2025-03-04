@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataConsulting.Inventory.Domain.Product.ValueObjects
+namespace DataConsulting.Inventory.Domain.Products.ValueObjects
 {
     public record Expiration(
         bool HasExpiration, 

@@ -1,14 +1,14 @@
 ﻿using DataConsulting.Inventory.Domain.Abstractions;
 using DataConsulting.Inventory.Domain.Primitives;
-using DataConsulting.Inventory.Domain.Product.Events;
-using DataConsulting.Inventory.Domain.Product.ValueObjects;
+using DataConsulting.Inventory.Domain.Products.Events;
+using DataConsulting.Inventory.Domain.Products.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataConsulting.Inventory.Domain.Product
+namespace DataConsulting.Inventory.Domain.Products
 {
     public sealed class Product : AggregateRoot
     {

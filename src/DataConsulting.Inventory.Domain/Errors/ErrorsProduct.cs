@@ -13,5 +13,10 @@ namespace DataConsulting.Inventory.Domain.Errors
            "Product.Found",
            "El producto con el Id especificado no fue encontrado"
         );
+
+        public static readonly Error ConcurrencyConflict = new Error(
+        "Product.ConcurrencyConflict",
+        "Se detectó un conflicto de concurrencia. El producto ha sido modificado por otro proceso."
+    );
     }
 }

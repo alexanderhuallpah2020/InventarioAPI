@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataConsulting.Inventory.Domain.Product
+namespace DataConsulting.Inventory.Domain.Products
 {
     public interface IProductRepository
     {

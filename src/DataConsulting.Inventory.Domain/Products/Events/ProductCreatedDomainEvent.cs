@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataConsulting.Inventory.Domain.Product.Events
+namespace DataConsulting.Inventory.Domain.Products.Events
 {
     public sealed record ProductCreatedDomainEvent(Guid ProductId) : IDomainEvent;
 }
