@@ -12,5 +12,6 @@ namespace DataConsulting.Inventory.Domain.Product
         Task AddAsync(Product product);
         Task UpdateAsync(Product product);
         Task DeleteAsync(Product product);
+        void Add(Product product);
     }
 }

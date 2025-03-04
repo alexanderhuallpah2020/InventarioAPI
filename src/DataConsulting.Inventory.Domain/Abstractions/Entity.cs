@@ -8,9 +8,7 @@ namespace DataConsulting.Inventory.Domain.Abstractions
 {
     public abstract class Entity
     {
-        protected Entity() {}
-
-        private readonly List<IDomainEvent> _domainEvents = new();
+        protected Entity() { }
 
         protected Entity(Guid id)
         {
@@ -19,19 +17,14 @@ namespace DataConsulting.Inventory.Domain.Abstractions
 
         public Guid Id { get; init; }
 
-        public IReadOnlyList<IDomainEvent> GetDomainEvents()
+        public override bool Equals(object? obj)
         {
-            return _domainEvents.ToList();
+            if (obj is not Entity other)
+                return false;
+
+            return Id == other.Id;
         }
 
-        public void ClearDomainEvents()
-        {
-            _domainEvents.Clear();
-        }
-
-        protected void RaiseDomainEvent(IDomainEvent domainEvent)
-        {
-            _domainEvents.Add(domainEvent);
-        }
+        public override int GetHashCode() => Id.GetHashCode();
     }
 }
