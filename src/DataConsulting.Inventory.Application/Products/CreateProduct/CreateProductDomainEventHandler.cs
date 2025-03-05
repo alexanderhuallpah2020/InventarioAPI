@@ -37,7 +37,7 @@ namespace DataConsulting.Inventory.Application.Products.CreateProduct
             var user = await _userRepository.GetByIdAsync(product.UserId, cancellationToken);
 
             await _emailService.SendAsync(
-            user.Email!,
+            user?.Email!,
             "Producto creado",
             "El producto ha sido creado correctamente."
         );

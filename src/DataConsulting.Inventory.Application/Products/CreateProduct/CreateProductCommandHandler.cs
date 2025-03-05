@@ -18,15 +18,16 @@ namespace DataConsulting.Inventory.Application.Products.CreateProduct
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDateTimeProvider _dateTimeProvider;
-
         private readonly IProductRepository _productRepository;
 
-
-        public CreateProductCommandHandler
-            (IUnitOfWork unitOfWork, IDateTimeProvider dateTimeProvider)
+        public CreateProductCommandHandler(
+            IUnitOfWork unitOfWork, 
+            IDateTimeProvider dateTimeProvider, 
+            IProductRepository productRepository)
         {
             _unitOfWork = unitOfWork;
             _dateTimeProvider = dateTimeProvider;
+            _productRepository = productRepository;
         }
 
         public async Task<Result<Guid>> Handle(
