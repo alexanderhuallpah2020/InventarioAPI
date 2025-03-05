@@ -13,27 +13,47 @@ namespace DataConsulting.Inventory.Domain.Products
     public sealed class Product : AggregateRoot
     {
         private Product() { }
-        public Product(
+
+
+        private Product(
             Guid id,
-            string Code,
-            string Name,
-            string Description,
-            string BaseUnit,
-            string ProductType,
-            string Category,
-            string Caliber,
-            bool IsActive,
-            GeneralProperties GeneralProperties,
-            LogisticsProperties LogisticsProperties,
-            AdjustmentFactors AdjustmentFactors,
-            PhysicalProperties PhysicalProperties,
-            Expiration Expiration,
-            Taxation Taxation
+            Guid userId,
+            string code,
+            string name,
+            string description,
+            string baseUnit,
+            string productType,
+            string category,
+            string caliber,
+            bool isActive,
+            GeneralProperties generalProperties,
+            LogisticsProperties logisticsProperties,
+            AdjustmentFactors adjustmentFactors,
+            PhysicalProperties physicalProperties,
+            Expiration expiration,
+            Taxation taxation
             ) : base(id)
         {
-            Id = id;
+            UserId = userId;
+            Code = code;
+            Name = name;
+            Description = description;
+            BaseUnit = baseUnit;
+            ProductType = productType;
+            Category = category;
+            Caliber = caliber;
+            IsActive = isActive;
+
+            GeneralProperties = generalProperties;
+            LogisticsProperties = logisticsProperties;
+            AdjustmentFactors = adjustmentFactors;
+            PhysicalProperties = physicalProperties;
+            Expiration = expiration;
+            Taxation = taxation;
+
         }
 
+        public Guid UserId { get; private set; }
         public string? Code { get; private set; }
         public string? Name { get; private set; }
         public string? Description { get; private set; }
@@ -53,6 +73,7 @@ namespace DataConsulting.Inventory.Domain.Products
 
 
         public static Result<Product> Create(
+            Guid UserId,
             string Code,
             string Name,
             string Description,
@@ -72,6 +93,7 @@ namespace DataConsulting.Inventory.Domain.Products
             var product = new Product
             (
                 Guid.NewGuid(),
+                UserId,
                 Code,
                 Name,
                 Description,

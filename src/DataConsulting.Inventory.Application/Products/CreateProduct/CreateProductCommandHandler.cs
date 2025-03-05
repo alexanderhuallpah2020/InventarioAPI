@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataConsulting.Inventory.Application.Abstractions.Products.CreateProduct
+namespace DataConsulting.Inventory.Application.Products.CreateProduct
 {
     internal sealed class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, Guid>
     {
@@ -37,6 +37,7 @@ namespace DataConsulting.Inventory.Application.Abstractions.Products.CreateProdu
             try
             {
                 var result = Product.Create(
+                    request.UserId,
                     request.Code,
                     request.Name,
                     request.Description,
