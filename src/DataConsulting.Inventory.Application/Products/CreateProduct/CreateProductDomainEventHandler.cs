@@ -38,8 +38,8 @@ namespace DataConsulting.Inventory.Application.Products.CreateProduct
 
             await _emailService.SendAsync(
             user.Email!,
-            "Alquiler Reservado",
-            "Tienes que confirmar esta reserva de lo contrario se va a perder"
+            "Producto creado",
+            "El producto ha sido creado correctamente."
         );
 
 
