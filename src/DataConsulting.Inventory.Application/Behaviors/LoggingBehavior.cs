@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 namespace DataConsulting.Inventory.Application.Behaviors
 {
     public class LoggingBehavior<TRequest, TResponse>
-: IPipelineBehavior<TRequest, TResponse>
-where TRequest : IBaseCommand
+    : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IBaseCommand
     {
         private readonly ILogger<TRequest> _logger;
 
