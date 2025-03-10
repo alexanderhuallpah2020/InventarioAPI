@@ -1,9 +1,12 @@
-﻿using DataConsulting.Inventory.Application.Abstractions.Common;
+﻿using Dapper;
+using DataConsulting.Inventory.Application.Abstractions.Common;
+using DataConsulting.Inventory.Application.Abstractions.Data;
 using DataConsulting.Inventory.Application.Abstractions.Email;
 using DataConsulting.Inventory.Domain.Abstractions;
 using DataConsulting.Inventory.Domain.Products;
 using DataConsulting.Inventory.Domain.Users;
 using DataConsulting.Inventory.Persistence.Clock;
+using DataConsulting.Inventory.Persistence.Data;
 using DataConsulting.Inventory.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,6 +41,10 @@ namespace DataConsulting.Inventory.Persistence
             services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
+
+            services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
+
+            SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
 
             return services;
         }
