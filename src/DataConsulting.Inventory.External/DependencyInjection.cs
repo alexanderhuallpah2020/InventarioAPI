@@ -12,9 +12,8 @@ namespace DataConsulting.Inventory.External
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services,
-        IConfiguration configuration
+        public static IServiceCollection AddExternal(
+        this IServiceCollection services
         )
         {
             services.AddTransient<IEmailService, EmailService>();
