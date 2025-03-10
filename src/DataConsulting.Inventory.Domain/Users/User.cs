@@ -2,13 +2,14 @@
 using DataConsulting.Inventory.Domain.Users.Events;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataConsulting.Inventory.Domain.Users
 {
-    public sealed class User : AggregateRoot
+    public sealed class User : Entity
     {
         private User()
         {

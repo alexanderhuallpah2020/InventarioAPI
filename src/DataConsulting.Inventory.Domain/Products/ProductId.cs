@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataConsulting.Inventory.Domain.Products
 {
-    public interface IProductRepository
+    public record ProductId(Guid Value)
     {
-        Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-        void Add(Product product);
-
+        public static ProductId New() => new(Guid.NewGuid());
     }
 }

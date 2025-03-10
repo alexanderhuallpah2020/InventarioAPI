@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataConsulting.Inventory.Domain.Errors
+namespace DataConsulting.Inventory.Domain.Users
 {
-    public static class ErrorsUser
+    public static class UserErrors
     {
 
         public static Error NotFound = new(

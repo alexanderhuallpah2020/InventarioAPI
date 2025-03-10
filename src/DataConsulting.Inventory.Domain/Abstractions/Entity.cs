@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,7 +9,11 @@ namespace DataConsulting.Inventory.Domain.Abstractions
 {
     public abstract class Entity
     {
-        protected Entity() { }
+        protected Entity()
+        {
+
+        }
+        private readonly List<IDomainEvent> _domainEvents = new();
 
         protected Entity(Guid id)
         {
@@ -17,14 +22,21 @@ namespace DataConsulting.Inventory.Domain.Abstractions
 
         public Guid Id { get; init; }
 
-        public override bool Equals(object? obj)
+        public IReadOnlyList<IDomainEvent> GetDomainEvents()
         {
-            if (obj is not Entity other)
-                return false;
-
-            return Id == other.Id;
+            return _domainEvents.ToList();
         }
 
-        public override int GetHashCode() => Id.GetHashCode();
+        public void ClearDomainEvents()
+        {
+            _domainEvents.Clear();
+        }
+
+        protected void RaiseDomainEvent(IDomainEvent domainEvent)
+        {
+            _domainEvents.Add(domainEvent);
+        }
+
+
     }
 }

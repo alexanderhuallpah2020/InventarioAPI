@@ -2,6 +2,7 @@
 using DataConsulting.Inventory.Domain.Primitives;
 using DataConsulting.Inventory.Domain.Products.Events;
 using DataConsulting.Inventory.Domain.Products.ValueObjects;
+using DataConsulting.Inventory.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataConsulting.Inventory.Domain.Products
 {
-    public sealed class Product : AggregateRoot
+    public sealed class Product : Entity
     {
         private Product() { }
 

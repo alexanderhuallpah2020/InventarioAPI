@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataConsulting.Inventory.Domain.Errors
+namespace DataConsulting.Inventory.Domain.Products
 {
     public static class ErrorsProduct
     {

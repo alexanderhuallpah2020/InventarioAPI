@@ -1,5 +1,11 @@
 ﻿using DataConsulting.Inventory.Application.Abstractions.Common;
+using DataConsulting.Inventory.Application.Abstractions.Email;
+using DataConsulting.Inventory.Domain.Abstractions;
+using DataConsulting.Inventory.Domain.Products;
+using DataConsulting.Inventory.Domain.Users;
 using DataConsulting.Inventory.Persistence.Clock;
+using DataConsulting.Inventory.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,7 +24,20 @@ namespace DataConsulting.Inventory.Persistence
         )
         {
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            //services.AddTransient<IEmailService, EmailService>();
 
+            var connectionString = configuration.GetConnectionString("ConnectionString")
+             ?? throw new ArgumentNullException(nameof(configuration));
+
+
+            services.AddDbContext<ApplicationDbContext>(options => {
+                options.UseSqlServer(connectionString).UseSnakeCaseNamingConvention();
+            });
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
             return services;
         }

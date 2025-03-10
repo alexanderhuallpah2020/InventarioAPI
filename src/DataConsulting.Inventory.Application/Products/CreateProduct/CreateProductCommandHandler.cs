@@ -2,7 +2,6 @@
 using DataConsulting.Inventory.Application.Abstractions.Messaging;
 using DataConsulting.Inventory.Application.Exceptions;
 using DataConsulting.Inventory.Domain.Abstractions;
-using DataConsulting.Inventory.Domain.Errors;
 using DataConsulting.Inventory.Domain.Primitives;
 using DataConsulting.Inventory.Domain.Products;
 using System;
