@@ -1,6 +1,7 @@
 using DataConsulting.Inventory.Application;
 using DataConsulting.Inventory.Persistence;
 using DataConsulting.Inventory.External;
+using DataConsulting.Inventory.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ApplyMigration();
 
 app.MapControllers();
 app.Run();

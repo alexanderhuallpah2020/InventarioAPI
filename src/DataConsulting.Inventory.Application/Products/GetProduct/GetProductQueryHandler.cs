@@ -2,11 +2,6 @@
 using DataConsulting.Inventory.Application.Abstractions.Data;
 using DataConsulting.Inventory.Application.Abstractions.Messaging;
 using DataConsulting.Inventory.Domain.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataConsulting.Inventory.Application.Products.GetProduct
 {
