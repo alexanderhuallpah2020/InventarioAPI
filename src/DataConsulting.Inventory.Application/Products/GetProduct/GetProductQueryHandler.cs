@@ -28,7 +28,7 @@ namespace DataConsulting.Inventory.Application.Products.GetProduct
                     name AS Name,
                     description AS Description
 
-               FROM Articulo WHERE idArticulo=@AlquilerId  
+               FROM products WHERE id=@ProductId  
             """;
 
             var product = await connection.QueryFirstOrDefaultAsync<ProductResponse>(
