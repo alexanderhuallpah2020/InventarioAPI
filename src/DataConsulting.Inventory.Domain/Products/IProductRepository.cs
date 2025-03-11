@@ -10,6 +10,6 @@ namespace DataConsulting.Inventory.Domain.Products
     {
         Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         void Add(Product product);
-
+        void Update(Product product);
     }
 }

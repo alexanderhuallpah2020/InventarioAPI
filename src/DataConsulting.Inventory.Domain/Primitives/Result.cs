@@ -42,6 +42,10 @@ namespace DataConsulting.Inventory.Domain.Primitives
             ? Success(value)
             : Failure<TValue>(Error.NullValue);
 
+        public static Result<T> Failure<T>(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Result<TValue> : Result

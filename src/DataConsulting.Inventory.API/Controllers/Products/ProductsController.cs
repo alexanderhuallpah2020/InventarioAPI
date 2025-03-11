@@ -1,5 +1,6 @@
 ﻿using DataConsulting.Inventory.Application.Products.CreateProduct;
 using DataConsulting.Inventory.Application.Products.GetProduct;
+using DataConsulting.Inventory.Application.Products.UpdateProduct;
 using DataConsulting.Inventory.Domain.Products.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,48 +34,6 @@ namespace DataConsulting.Inventory.API.Controllers.Products
         [FromBody] CreateProductRequest request,
         CancellationToken cancellationToken)
         {
-            // 🛠️ Crear los Value Objects correctamente
-            var generalProperties = new GeneralProperties(
-                request.GeneralProperties.IsImported,
-                request.GeneralProperties.HasDrawback,
-                request.GeneralProperties.IsCompositeProduct
-            );
-
-            var logisticsProperties = new LogisticsProperties(
-                request.LogisticsProperties.TrackingType,
-                request.LogisticsProperties.CatalogType
-            );
-
-            var adjustmentFactors = new AdjustmentFactors(
-                request.AdjustmentFactors.WeightFactor,
-                request.AdjustmentFactors.UsageFactor,
-                request.AdjustmentFactors.ConditioningFactor,
-                request.AdjustmentFactors.LossFactor
-            );
-
-            var physicalProperties = new PhysicalProperties(
-                request.PhysicalProperties.Weight,
-                request.PhysicalProperties.Volume
-            );
-
-            var expiration = new Expiration(
-                request.Expiration.HasExpiration,
-                request.Expiration.DurationDays,
-                request.Expiration.PreExpirationDays
-            );
-
-            var taxation = new Taxation(
-                request.Taxation.ForeignVAT,
-                request.Taxation.ICBPERApplicable,
-                request.Taxation.VATApplicable,
-                request.Taxation.VATPercentage,
-                request.Taxation.ISCApplicable,
-                request.Taxation.ISCPercentage,
-                request.Taxation.Perception,
-                request.Taxation.Withholding
-            );
-
-            // 📌 Pasamos los Value Objects en lugar de valores individuales
             var command = new CreateProductCommand(
                 request.UserId,
                 request.Code,
@@ -85,23 +44,59 @@ namespace DataConsulting.Inventory.API.Controllers.Products
                 request.Category,
                 request.Caliber,
                 request.IsActive,
-                generalProperties,     // ✅ Pasamos los objetos ValueObject
-                logisticsProperties,
-                adjustmentFactors,
-                physicalProperties,
-                expiration,
-                taxation
+                request.GeneralProperties,
+                request.LogisticsProperties,
+                request.AdjustmentFactors,
+                request.PhysicalProperties,
+                request.Expiration,
+                request.Taxation
             );
 
 
             var result = await _sender.Send(command, cancellationToken);
 
             if (result.IsFailure)
-            {
                 return Unauthorized(result.Error);
-            }
 
             return Ok(result.Value);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProduct(
+            Guid id,
+            [FromBody] UpdateProductRequest request,
+            CancellationToken cancellationToken)
+        {
+            if (id != request.Id)
+                return BadRequest("El ID en la URL no coincide con el del cuerpo de la solicitud.");
+
+
+            var command = new UpdateProductCommand(
+                request.Id,
+                request.UserId,
+                request.Code,
+                request.Name,
+                request.Description,
+                request.BaseUnit,
+                request.ProductType,
+                request.Category,
+                request.Caliber,
+                request.IsActive,
+                request.GeneralProperties,
+                request.LogisticsProperties,
+                request.AdjustmentFactors,
+                request.PhysicalProperties,
+                request.Expiration,
+                request.Taxation
+            );
+
+            var result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure)
+                return NotFound(result.Error);
+
+            return Ok(result.Value);
+        }
+
     }
 }

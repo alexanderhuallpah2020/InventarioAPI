@@ -32,7 +32,10 @@ namespace DataConsulting.Inventory.Persistence.Repositories
             DbContext.Add(entity);
         }
 
-
+        public void Update(T entity)
+        {
+            DbContext.Set<T>().Update(entity);
+        }
 
     }
 

@@ -14,6 +14,25 @@ namespace DataConsulting.Inventory.Domain.Products
 {
     public sealed class Product : Entity
     {
+        public Product(Guid id, string code, string name, string description, string baseUnit, string productType, string category, string caliber, bool isActive, GeneralProperties generalProperties, LogisticsProperties logisticsProperties, AdjustmentFactors adjustmentFactors, PhysicalProperties physicalProperties, Expiration expiration, Taxation taxation)
+        {
+            Id = id;
+            Code = code;
+            Name = name;
+            Description = description;
+            BaseUnit = baseUnit;
+            ProductType = productType;
+            Category = category;
+            Caliber = caliber;
+            IsActive = isActive;
+            GeneralProperties = generalProperties;
+            LogisticsProperties = logisticsProperties;
+            AdjustmentFactors = adjustmentFactors;
+            PhysicalProperties = physicalProperties;
+            Expiration = expiration;
+            Taxation = taxation;
+        }
+
         private Product() { }
 
 
@@ -54,6 +73,7 @@ namespace DataConsulting.Inventory.Domain.Products
             Taxation = taxation;
 
         }
+        public Guid Id { get; set; }
         public byte[] Version { get; set; }
         public Guid UserId { get; private set; }
         public string? Code { get; private set; }
@@ -116,6 +136,50 @@ namespace DataConsulting.Inventory.Domain.Products
 
             return Result.Success(product);
         }
+
+        public Result Update(
+            Guid id,
+            string code,
+            string name,
+            string description,
+            string baseUnit,
+            string productType,
+            string category,
+            string caliber,
+            bool isActive,
+            GeneralProperties generalProperties,
+            LogisticsProperties logisticsProperties,
+            AdjustmentFactors adjustmentFactors,
+            PhysicalProperties physicalProperties,
+            Expiration expiration,
+            Taxation taxation
+        )
+        {
+            var product = new Product(
+                id,
+                code,
+                name,
+                description,
+                baseUnit,
+                productType,
+                category,
+                caliber,
+                isActive,
+                generalProperties,
+                logisticsProperties,
+                adjustmentFactors,
+                physicalProperties,
+                expiration,
+                taxation
+            );
+            
+
+            // 🛠️ Generar evento de dominio si es necesario
+            RaiseDomainEvent(new ProductUpdatedDomainEvent(product.Id));
+
+            return Result.Success(product);
+        }
+
 
     }
 }
