@@ -5,6 +5,7 @@ using DataConsulting.Inventory.Domain.Products.ValueObjects;
 using DataConsulting.Inventory.Domain.Users;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,7 +54,7 @@ namespace DataConsulting.Inventory.Domain.Products
             Taxation = taxation;
 
         }
-
+        public byte[] Version { get; set; }
         public Guid UserId { get; private set; }
         public string? Code { get; private set; }
         public string? Name { get; private set; }

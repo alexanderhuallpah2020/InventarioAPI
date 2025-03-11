@@ -43,9 +43,10 @@ namespace DataConsulting.Inventory.Persistence.Configurations
 
 
             builder.OwnsOne(product => product.GeneralProperties);
-            builder.Property<uint>("Version").IsRowVersion();
 
-            builder.Property(t => t.Version).IsRowVersion();
+            builder.Property(c => c.Version)
+            .HasColumnName("Version")
+            .IsRowVersion();
         }
     }
 }

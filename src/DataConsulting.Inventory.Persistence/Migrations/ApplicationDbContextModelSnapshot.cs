@@ -67,11 +67,12 @@ namespace DataConsulting.Inventory.Persistence.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("user_id");
 
-                    b.Property<long>("Version")
+                    b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bigint")
-                        .HasColumnName("version");
+                        .HasColumnType("rowversion")
+                        .HasColumnName("Version");
 
                     b.HasKey("Id")
                         .HasName("pk_products");

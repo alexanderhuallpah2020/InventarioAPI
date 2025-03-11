@@ -30,6 +30,7 @@ namespace DataConsulting.Inventory.Persistence.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -60,8 +61,7 @@ namespace DataConsulting.Inventory.Persistence.Migrations
                     taxation_isc_applicable = table.Column<bool>(type: "bit", nullable: true),
                     taxation_isc_percentage = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     taxation_perception = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    taxation_withholding = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    version = table.Column<long>(type: "bigint", rowVersion: true, nullable: false)
+                    taxation_withholding = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
                 {

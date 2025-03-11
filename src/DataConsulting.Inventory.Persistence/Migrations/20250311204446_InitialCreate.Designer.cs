@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataConsulting.Inventory.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250310210042_InitialCreate")]
+    [Migration("20250311204446_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -70,11 +70,12 @@ namespace DataConsulting.Inventory.Persistence.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("user_id");
 
-                    b.Property<long>("Version")
+                    b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bigint")
-                        .HasColumnName("version");
+                        .HasColumnType("rowversion")
+                        .HasColumnName("Version");
 
                     b.HasKey("Id")
                         .HasName("pk_products");
