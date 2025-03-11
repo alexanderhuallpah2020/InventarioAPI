@@ -63,7 +63,6 @@ namespace DataConsulting.Inventory.API.Middleware
                     "Un inesperado error a ocurrido en la App",
                     null
                 )
-
             };
         }
 

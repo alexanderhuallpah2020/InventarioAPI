@@ -72,7 +72,6 @@ namespace DataConsulting.Inventory.Domain.Products
         public Expiration? Expiration { get; private set; }
         public Taxation? Taxation { get; private set; }
 
-
         public static Result<Product> Create(
             Guid UserId,
             string Code,

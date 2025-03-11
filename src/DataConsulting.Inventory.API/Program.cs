@@ -28,6 +28,7 @@ if (app.Environment.IsDevelopment())
 app.ApplyMigration();
 
 //app.SeedData();  //Insertar data fake en productos
+app.UseCustomExceptionHandler();
 
 app.MapControllers();
 app.Run();

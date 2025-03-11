@@ -1,5 +1,4 @@
-﻿using DataConsulting.Inventory.Application.Abstractions.Messaging;
-using DataConsulting.Inventory.Domain.Products.ValueObjects;
+﻿using DataConsulting.Inventory.Domain.Products.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataConsulting.Inventory.Application.Products.CreateProduct
 {
-    public sealed record CreateProductCommand
-    (
+    public record CreateProductRequest(
         Guid UserId,
         string Code,
         string Name,
@@ -25,6 +23,5 @@ namespace DataConsulting.Inventory.Application.Products.CreateProduct
         PhysicalProperties PhysicalProperties,
         Expiration Expiration,
         Taxation Taxation
-
-    ) : ICommand<Guid>;
+        );
 }
