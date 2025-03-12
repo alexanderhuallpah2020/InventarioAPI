@@ -1,6 +1,8 @@
 ﻿using DataConsulting.Inventory.API.Middleware;
 using DataConsulting.Inventory.Persistence;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace DataConsulting.Inventory.API.Extensions
 {
@@ -27,9 +29,23 @@ namespace DataConsulting.Inventory.API.Extensions
             }
         }
 
-        public static void UseCustomExceptionHandler(this IApplicationBuilder app)
+        public static IServiceCollection AddCustomExceptionHandling(this IServiceCollection services)
         {
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            services.AddProblemDetails(o =>
+            {
+                o.CustomizeProblemDetails = context =>
+                {
+                    context.ProblemDetails.Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
+                    context.ProblemDetails.Extensions.Add("requestId", context.HttpContext.TraceIdentifier);
+
+                    Activity? activity = context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity;
+                    context.ProblemDetails.Extensions.Add("traceId", activity?.Id);
+                };
+            });
+
+            services.AddExceptionHandler<GlobalExceptionHandler>();
+
+            return services;
         }
     }
 }

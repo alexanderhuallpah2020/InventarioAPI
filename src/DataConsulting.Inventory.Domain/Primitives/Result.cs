@@ -12,10 +12,15 @@ namespace DataConsulting.Inventory.Domain.Primitives
         protected internal Result(bool isSuccess, Error error)
         {
             if (isSuccess && error != Error.None)
+            {
                 throw new InvalidOperationException();
+            }
+
 
             if (!isSuccess && error == Error.None)
+            {
                 throw new InvalidOperationException();
+            }
 
             IsSuccess = isSuccess;
             Error = error;
@@ -42,10 +47,6 @@ namespace DataConsulting.Inventory.Domain.Primitives
             ? Success(value)
             : Failure<TValue>(Error.NullValue);
 
-        public static Result<T> Failure<T>(string v)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public class Result<TValue> : Result
@@ -61,7 +62,7 @@ namespace DataConsulting.Inventory.Domain.Primitives
         [NotNull]
         public TValue Value => IsSuccess
         ? _value!
-        : throw new InvalidOperationException($"Intentaste acceder a un valor fallido: {Error.Message}");
+        : throw new InvalidOperationException("El resultado del valor de error no es admisible");
 
 
         public static implicit operator Result<TValue>(TValue value) => Create(value);

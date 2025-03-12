@@ -2,6 +2,7 @@
 using DataConsulting.Inventory.Application.Abstractions.Data;
 using DataConsulting.Inventory.Application.Abstractions.Messaging;
 using DataConsulting.Inventory.Domain.Primitives;
+using DataConsulting.Inventory.Domain.Products;
 
 namespace DataConsulting.Inventory.Application.Products.GetProduct
 {
@@ -38,7 +39,10 @@ namespace DataConsulting.Inventory.Application.Products.GetProduct
                     request.ProductId
                 }
             );
-            return product!;
+
+            return product is not null
+                ? Result.Success(product)
+                : Result.Failure<ProductResponse>(ErrorsProduct.NotFound);
         }
     }
 }

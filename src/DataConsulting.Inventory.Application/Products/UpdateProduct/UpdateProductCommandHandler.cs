@@ -34,7 +34,7 @@ namespace DataConsulting.Inventory.Application.Products.UpdateProduct
                 // 🔍 Buscar el producto por ID
                 var product = await _productRepository.GetByIdAsync(request.Id, cancellationToken);
                 if (product is null)
-                    return Result.Failure<Guid>("Producto no encontrado");
+                    return Result.Failure<Guid>(ErrorsProduct.NotFound);
 
                 // 🔄 Actualizar sus propiedades
                 product.Update(

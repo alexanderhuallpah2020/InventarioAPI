@@ -26,7 +26,11 @@ namespace DataConsulting.Inventory.API.Controllers.Products
             var query = new GetProductQuery(id);
             var resultados = await _sender.Send(query, cancellationToken);
 
+
             return resultados.IsSuccess ? Ok(resultados.Value) : NotFound();
+
+
+
         }
 
         [HttpPost("register")]
@@ -56,7 +60,7 @@ namespace DataConsulting.Inventory.API.Controllers.Products
             var result = await _sender.Send(command, cancellationToken);
 
             if (result.IsFailure)
-                return Unauthorized(result.Error);
+                return BadRequest(result.Error);
 
             return Ok(result.Value);
         }
