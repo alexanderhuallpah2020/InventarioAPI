@@ -18,6 +18,8 @@ namespace DataConsulting.Inventory.API.Controllers.Products
             _sender = sender;
         }
 
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> SearchProducts(
         Guid id,
@@ -26,12 +28,12 @@ namespace DataConsulting.Inventory.API.Controllers.Products
             var query = new GetProductQuery(id);
             var resultados = await _sender.Send(query, cancellationToken);
 
-
             return resultados.IsSuccess ? Ok(resultados.Value) : NotFound();
-
-
-
         }
+
+
+
+
 
         [HttpPost("register")]
         public async Task<IActionResult> CreateProducts(
@@ -64,6 +66,8 @@ namespace DataConsulting.Inventory.API.Controllers.Products
 
             return Ok(result.Value);
         }
+
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(
