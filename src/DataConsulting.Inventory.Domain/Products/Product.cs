@@ -138,7 +138,6 @@ namespace DataConsulting.Inventory.Domain.Products
         }
 
         public Result Update(
-            Guid id,
             string code,
             string name,
             string description,
@@ -155,30 +154,29 @@ namespace DataConsulting.Inventory.Domain.Products
             Taxation taxation
         )
         {
-            var product = new Product(
-                id,
-                code,
-                name,
-                description,
-                baseUnit,
-                productType,
-                category,
-                caliber,
-                isActive,
-                generalProperties,
-                logisticsProperties,
-                adjustmentFactors,
-                physicalProperties,
-                expiration,
-                taxation
-            );
-            
+            Code = code;
+            Name = name;
+            Description = description;
+            BaseUnit = baseUnit;
+            ProductType = productType;
+            Category = category;
+            Caliber = caliber;
+            IsActive = isActive;
+
+            GeneralProperties = generalProperties;
+            LogisticsProperties = logisticsProperties;
+            AdjustmentFactors = adjustmentFactors;
+            PhysicalProperties = physicalProperties;
+            Expiration = expiration;
+            Taxation = taxation;
 
             // 🛠️ Generar evento de dominio si es necesario
-            RaiseDomainEvent(new ProductUpdatedDomainEvent(product.Id));
+            RaiseDomainEvent(new ProductUpdatedDomainEvent(Id));
 
-            return Result.Success(product);
+            return Result.Success();
         }
+
+
 
 
     }

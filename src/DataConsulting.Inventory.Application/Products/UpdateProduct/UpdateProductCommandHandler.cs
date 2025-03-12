@@ -38,7 +38,6 @@ namespace DataConsulting.Inventory.Application.Products.UpdateProduct
 
                 // 🔄 Actualizar sus propiedades
                 product.Update(
-                    request.Id,
                     request.Code,
                     request.Name,
                     request.Description,
