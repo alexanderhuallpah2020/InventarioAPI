@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataConsulting.Inventory.Domain.Users
 {
-    public sealed class User : Entity
+    public sealed class User : Entity<UserId>
     {
         private User()
         {
@@ -17,7 +17,7 @@ namespace DataConsulting.Inventory.Domain.Users
         }
 
         private User(
-            Guid id,
+            UserId id,
             Nombre nombre,
             Apellido apellido,
             Email email
@@ -32,14 +32,15 @@ namespace DataConsulting.Inventory.Domain.Users
         public Apellido? Apellido { get; private set; }
         public Email? Email { get; private set; }
 
+
         public static User Create(
             Nombre nombre,
             Apellido apellido,
             Email email
         )
         {
-            var user = new User(Guid.NewGuid(), nombre, apellido, email);
-            user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id));
+            var user = new User(UserId.New(), nombre, apellido, email);
+            user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id!));
             return user;
         }
 

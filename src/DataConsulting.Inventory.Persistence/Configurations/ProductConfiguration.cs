@@ -16,7 +16,11 @@ namespace DataConsulting.Inventory.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("products");
+
             builder.HasKey(product => product.Id);
+            builder.Property(product => product.Id)
+       .HasConversion(product => product!.Value, value => new ProductId(value));
+
 
             builder.HasOne<User>()
             .WithMany()

@@ -4,6 +4,7 @@ using DataConsulting.Inventory.Application.Exceptions;
 using DataConsulting.Inventory.Domain.Abstractions;
 using DataConsulting.Inventory.Domain.Primitives;
 using DataConsulting.Inventory.Domain.Products;
+using DataConsulting.Inventory.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,26 +19,32 @@ namespace DataConsulting.Inventory.Application.Products.CreateProduct
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IProductRepository _productRepository;
+        private readonly IUserRepository _userRepository;
 
-        public CreateProductCommandHandler(
-            IUnitOfWork unitOfWork, 
-            IDateTimeProvider dateTimeProvider, 
-            IProductRepository productRepository)
+        public CreateProductCommandHandler(IUnitOfWork unitOfWork, IDateTimeProvider dateTimeProvider, IProductRepository productRepository, IUserRepository userRepository)
         {
             _unitOfWork = unitOfWork;
             _dateTimeProvider = dateTimeProvider;
             _productRepository = productRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<Result<Guid>> Handle(
             CreateProductCommand request, 
             CancellationToken cancellationToken)
         {
+            var userId = new UserId(request.UserId);
+            var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
+
+            if (user is null)
+                return Result.Failure<Guid>(UserErrors.NotFound);
+
+
 
             try
             {
                 var result = Product.Create(
-                    request.UserId,
+                    user.Id!,
                     request.Code,
                     request.Name,
                     request.Description,
@@ -55,11 +62,11 @@ namespace DataConsulting.Inventory.Application.Products.CreateProduct
                 );
 
 
-                _productRepository.Add(result.Value);
+                _productRepository.Add(result);
 
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                return Result.Success(result.Value.Id);
+                return result.Id!.Value;
 
 
             }

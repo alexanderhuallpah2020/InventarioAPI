@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace DataConsulting.Inventory.Domain.Products.Events
 {
-    public sealed record ProductCreatedDomainEvent(Guid ProductId) : IDomainEvent;
+    public sealed record ProductCreatedDomainEvent(ProductId ProductId) : IDomainEvent;
 }

@@ -12,11 +12,10 @@ using System.Threading.Tasks;
 
 namespace DataConsulting.Inventory.Domain.Products
 {
-    public sealed class Product : Entity
+    public sealed class Product : Entity<ProductId>
     {
-        public Guid Id { get; set; }
-        public byte[] Version { get; set; }
-        public Guid UserId { get; private set; }
+        public byte[]? Version { get; set; }
+        public UserId? UserId { get; private set; }
         public string? Code { get; private set; }
         public string? Name { get; private set; }
         public string? Description { get; private set; }
@@ -37,8 +36,8 @@ namespace DataConsulting.Inventory.Domain.Products
 
         private Product() { }
         private Product(
-            Guid id,
-            Guid userId,
+            ProductId id,
+            UserId userId,
             string code,
             string name,
             string description,
@@ -75,8 +74,8 @@ namespace DataConsulting.Inventory.Domain.Products
         }
        
 
-        public static Result<Product> Create(
-            Guid UserId,
+        public static Product Create(
+            UserId UserId,
             string Code,
             string Name,
             string Description,
@@ -95,7 +94,7 @@ namespace DataConsulting.Inventory.Domain.Products
         {
             var product = new Product
             (
-                Guid.NewGuid(),
+                ProductId.New(),
                 UserId,
                 Code,
                 Name,
@@ -114,12 +113,14 @@ namespace DataConsulting.Inventory.Domain.Products
             );
 
 
-            product.RaiseDomainEvent(new ProductCreatedDomainEvent(product.Id));
+            product.RaiseDomainEvent(new ProductCreatedDomainEvent(product.Id!));
 
-            return Result.Success(product);
+            return product;
         }
 
-        public Result Update(
+
+
+        public void Update(
             string code,
             string name,
             string description,
@@ -144,7 +145,6 @@ namespace DataConsulting.Inventory.Domain.Products
             Category = category;
             Caliber = caliber;
             IsActive = isActive;
-
             GeneralProperties = generalProperties;
             LogisticsProperties = logisticsProperties;
             AdjustmentFactors = adjustmentFactors;
@@ -152,14 +152,7 @@ namespace DataConsulting.Inventory.Domain.Products
             Expiration = expiration;
             Taxation = taxation;
 
-            // 🛠️ Generar evento de dominio si es necesario
-            RaiseDomainEvent(new ProductUpdatedDomainEvent(Id));
-
-            return Result.Success();
+            RaiseDomainEvent(new ProductUpdatedDomainEvent(Id!));
         }
-
-
-
-
     }
 }

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataConsulting.Inventory.Domain.Users
 {
-    public interface IUserRepository
+    public record UserId(Guid Value)
     {
-        Task<User?> GetByIdAsync(UserId id, CancellationToken cancellationToken = default);
-
-        void Add(User user);
+        public static UserId New() => new(Guid.NewGuid());
     }
 }
