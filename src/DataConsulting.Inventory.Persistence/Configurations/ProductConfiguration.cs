@@ -1,4 +1,5 @@
 ﻿using DataConsulting.Inventory.Domain.Products;
+using DataConsulting.Inventory.Domain.Products.ValueObjects;
 using DataConsulting.Inventory.Domain.Shared;
 using DataConsulting.Inventory.Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -28,13 +29,42 @@ namespace DataConsulting.Inventory.Persistence.Configurations
             .IsRequired()
             .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(product => product.Code);
-            builder.Property(product => product.Name);
-            builder.Property(product => product.Description);
-            builder.Property(product => product.BaseUnit);
-            builder.Property(product => product.ProductType);
-            builder.Property(product => product.Category);
-            builder.Property(product => product.Caliber);
+
+            builder.Property(product => product.Code)
+            .HasMaxLength(500)
+            .HasConversion(code => code!.Value, value => new Code(value));
+
+            builder.Property(product => product.Name)
+           .HasMaxLength(500)
+           .HasConversion(name => name!.Value, value => new Name(value));
+
+            builder.Property(product => product.Description)
+           .HasMaxLength(500)
+           .HasConversion(description => description!.Value, value => new Description(value));
+
+
+            builder.Property(product => product.BaseUnit)
+           .HasMaxLength(500)
+           .HasConversion(baseUnit => baseUnit!.Value, value => new BaseUnit(value));
+
+
+            builder.Property(product => product.ProductType)
+           .HasMaxLength(500)
+           .HasConversion(productType => productType!.Value, value => new ProductType(value));
+
+
+            builder.Property(product => product.Category)
+           .HasMaxLength(500)
+           .HasConversion(category => category!.Value, value => new Category(value));
+
+
+            builder.Property(product => product.Caliber)
+           .HasMaxLength(500)
+           .HasConversion(caliber => caliber!.Value, value => new Caliber(value));
+
+
+
+
             builder.Property(product => product.IsActive).HasDefaultValue(false);
 
             builder.OwnsOne(product => product.GeneralProperties);
@@ -43,10 +73,6 @@ namespace DataConsulting.Inventory.Persistence.Configurations
             builder.OwnsOne(product => product.PhysicalProperties);
             builder.OwnsOne(product => product.Expiration);
             builder.OwnsOne(product => product.Taxation);
-
-
-
-            builder.OwnsOne(product => product.GeneralProperties);
 
             builder.Property(c => c.Version)
             .HasColumnName("Version")

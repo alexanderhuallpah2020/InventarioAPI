@@ -28,7 +28,7 @@ namespace DataConsulting.Inventory.Persistence.Repositories
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         }
 
-        public void Add(TEntityId entity)
+        public virtual void Add(TEntityId entity)
         {
             DbContext.Add(entity);
         }

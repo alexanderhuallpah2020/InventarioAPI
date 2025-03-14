@@ -16,13 +16,13 @@ namespace DataConsulting.Inventory.Domain.Products
     {
         public byte[]? Version { get; set; }
         public UserId? UserId { get; private set; }
-        public string? Code { get; private set; }
-        public string? Name { get; private set; }
-        public string? Description { get; private set; }
-        public string? BaseUnit { get; private set; }
-        public string? ProductType { get; private set; }
-        public string? Category { get; private set; }
-        public string? Caliber { get; private set; }
+        public Code? Code { get; private set; }
+        public Name? Name { get; private set; }
+        public Description? Description { get; private set; }
+        public BaseUnit? BaseUnit { get; private set; }
+        public ProductType? ProductType { get; private set; }
+        public Category? Category { get; private set; }
+        public Caliber? Caliber { get; private set; }
         public bool IsActive { get; private set; }
 
 
@@ -38,13 +38,13 @@ namespace DataConsulting.Inventory.Domain.Products
         private Product(
             ProductId id,
             UserId userId,
-            string code,
-            string name,
-            string description,
-            string baseUnit,
-            string productType,
-            string category,
-            string caliber,
+            Code code,
+            Name name,
+            Description description,
+            BaseUnit baseUnit,
+            ProductType productType,
+            Category category,
+            Caliber caliber,
             bool isActive,
             GeneralProperties generalProperties,
             LogisticsProperties logisticsProperties,
@@ -76,13 +76,13 @@ namespace DataConsulting.Inventory.Domain.Products
 
         public static Product Create(
             UserId UserId,
-            string Code,
-            string Name,
-            string Description,
-            string BaseUnit,
-            string ProductType,
-            string Category,
-            string Caliber,
+            Code Code,
+            Name Name,
+            Description Description,
+            BaseUnit BaseUnit,
+            ProductType ProductType,
+            Category Category,
+            Caliber Caliber,
             bool IsActive,
             GeneralProperties GeneralProperties,
             LogisticsProperties LogisticsProperties,
@@ -121,13 +121,13 @@ namespace DataConsulting.Inventory.Domain.Products
 
 
         public void Update(
-            string code,
-            string name,
-            string description,
-            string baseUnit,
-            string productType,
-            string category,
-            string caliber,
+            Code code,
+            Name name,
+            Description description,
+            BaseUnit baseUnit,
+            ProductType productType,
+            Category category,
+            Caliber caliber,
             bool isActive,
             GeneralProperties generalProperties,
             LogisticsProperties logisticsProperties,
